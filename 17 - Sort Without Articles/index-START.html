@@ -48,21 +48,16 @@
 <script>
   const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
 
-
-  articleSort(band) {
-    if (band.startsWith('The')) {
-      const mod1 = band.slice(3);
-      return `${mod1} THEEHT';
-    } else if (band.startsWith('A')) {
-      const mod2 = band.slice(2);
-      return `${mod2} AA`
-    } else if (band.startsWith('An')) {
-      const mod3 = band.slice(3);
-      return `${mod3}`
-    }
+  function strip(bandName) {
+    return bandName.replace(/^(a |the |an )/i, '').trim();
   }
 
-  bands.forEach(articleSort);
+  const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1);
+
+  document.querySelector('#bands').innerHTML = sortedBands.map(band => `<li>${band}</li>`).join('');
+
+
+  console.log(sortedBands);
 
 </script>
 
